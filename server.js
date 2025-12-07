@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(session({
-  secret: 'desi-ff-esports-secret-key-2024',
+  secret: process.env.SESSION_SECRET || 'desi-ff-esports-secret-key-change-in-production',
   resave: false,
   saveUninitialized: false,
   cookie: { maxAge: 24 * 60 * 60 * 1000 } // 24 hours
@@ -76,7 +76,9 @@ function initDatabase() {
     )`);
 
     // Create default admin (username: admin, password: admin123)
-    const hashedPassword = bcrypt.hashSync('admin123', 10);
+    // WARNING: Change this password immediately in production
+    const defaultPassword = process.env.DEFAULT_ADMIN_PASSWORD || 'admin123';
+    const hashedPassword = bcrypt.hashSync(defaultPassword, 10);
     db.run(`INSERT OR IGNORE INTO admins (username, password) VALUES (?, ?)`, 
       ['admin', hashedPassword]);
 
@@ -143,8 +145,12 @@ app.post('/api/login', (req, res) => {
 
 // Logout
 app.post('/api/logout', (req, res) => {
-  req.session.destroy();
-  res.json({ success: true });
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to logout' });
+    }
+    res.json({ success: true });
+  });
 });
 
 // Check auth status

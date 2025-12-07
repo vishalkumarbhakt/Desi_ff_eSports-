@@ -137,9 +137,31 @@ Desi_ff_eSports-/
 ## Security
 
 - Basic authentication for admin access
-- Session-based authorization
+- Session-based authorization  
 - Password hashing with bcryptjs
 - No external data transmission
+
+### Production Security Recommendations
+
+⚠️ **IMPORTANT**: Before deploying to production:
+
+1. **Change Default Password**: The default admin password is `admin123`. Change it immediately after first login or set `DEFAULT_ADMIN_PASSWORD` environment variable.
+
+2. **Set Session Secret**: Use a strong random secret for sessions:
+   ```bash
+   # Generate a secure secret
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+   # Set it in .env file
+   SESSION_SECRET=your-generated-secret-here
+   ```
+
+3. **Use HTTPS**: Always use HTTPS in production to encrypt data in transit.
+
+4. **Environment Variables**: Copy `.env.example` to `.env` and configure all variables:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your production values
+   ```
 
 ## License
 
