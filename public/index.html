@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desi FF eSports - Tournament Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen">
+        <div class="container">
+            <div class="card">
+                <h1>🎮 Desi FF eSports</h1>
+                <h2>Tournament Manager</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="loginUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <div id="loginError" class="error-message"></div>
+                <p class="hint">Default: admin / admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboardScreen" class="screen" style="display: none;">
+        <div class="header">
+            <h1>🎮 Desi FF eSports</h1>
+            <div class="header-actions">
+                <span id="usernameDisplay"></span>
+                <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="tournaments">Tournaments</button>
+                <button class="tab-btn" data-tab="create">Create New</button>
+            </div>
+
+            <!-- Tournaments Tab -->
+            <div id="tournamentsTab" class="tab-content active">
+                <h2>Active Tournaments</h2>
+                <div id="tournamentsList"></div>
+            </div>
+
+            <!-- Create Tournament Tab -->
+            <div id="createTab" class="tab-content">
+                <h2>Create New Tournament</h2>
+                <form id="createTournamentForm">
+                    <div class="form-group">
+                        <label>Tournament Name *</label>
+                        <input type="text" id="tournamentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mode *</label>
+                        <select id="tournamentMode" required>
+                            <option value="solo">Solo</option>
+                            <option value="duo">Duo</option>
+                            <option value="squad">Squad</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Slots *</label>
+                        <input type="number" id="totalSlots" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Entry Fee (₹) *</label>
+                        <input type="number" id="entryFee" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Prize Distribution Template *</label>
+                        <select id="prizeTemplate" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Organizer Commission (%) *</label>
+                        <input type="number" id="organizerCommission" min="0" max="100" value="0" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Tournament</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tournament Details Modal -->
+    <div id="tournamentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="tournamentDetails"></div>
+        </div>
+    </div>
+
+    <!-- Add Participant Modal -->
+    <div id="participantModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Participant</h2>
+            <form id="addParticipantForm">
+                <div class="form-group">
+                    <label>Team/Player Name *</label>
+                    <input type="text" id="teamName" required>
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" id="whatsappNumber">
+                </div>
+                <div class="form-group">
+                    <label>In-Game ID</label>
+                    <input type="text" id="ingameId">
+                </div>
+                <div class="form-group">
+                    <label>Payment Status</label>
+                    <select id="paymentStatus">
+                        <option value="pending">Pending</option>
+                        <option value="paid">Paid</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Participant</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div id="resultsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Enter Tournament Results</h2>
+            <div id="resultsForm"></div>
+        </div>
+    </div>
+
+    <!-- Summary Modal -->
+    <div id="summaryModal" class="modal">
+        <div class="modal-content large">
+            <span class="close">&times;</span>
+            <h2>Tournament Summary</h2>
+            <div id="summaryContent"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
