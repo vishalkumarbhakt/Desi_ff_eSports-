@@ -155,13 +155,17 @@ Desi_ff_eSports-/
    SESSION_SECRET=your-generated-secret-here
    ```
 
-3. **Use HTTPS**: Always use HTTPS in production to encrypt data in transit.
+3. **Use HTTPS**: Always use HTTPS in production to encrypt data in transit and secure session cookies.
 
 4. **Environment Variables**: Copy `.env.example` to `.env` and configure all variables:
    ```bash
    cp .env.example .env
    # Edit .env with your production values
    ```
+
+5. **Rate Limiting** (Optional): For production with high traffic, consider adding rate limiting middleware like `express-rate-limit` to prevent abuse.
+
+6. **CSRF Protection** (Optional): For production deployment, consider adding CSRF protection using `csurf` middleware for form submissions.
 
 ## License
 
